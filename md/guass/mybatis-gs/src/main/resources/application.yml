@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: org.opengauss.Driver
+    url: jdbc:opengauss://192.168.8.67:15400/mybatis
+    username: peter
+    password: peter@123
+
+server:
+  port: 80

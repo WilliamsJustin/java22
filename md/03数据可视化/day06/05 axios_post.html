@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/axios.min.js"></script>
+</head>
+
+<body>
+    <script>
+        const url = "http://localhost:8888/post"
+
+        // 设置 一下
+        const config = {
+            // 设置 content-type
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+            }
+        }
+
+        // axios 发起 post 请求
+        axios.post(url, {
+            code: 'codeV',
+            start: '2033'
+        }, config).then(function(res) {
+            console.log(res.data);
+            // const query = res.data;
+        })
+    </script>
+
+</body>
+
+</html>

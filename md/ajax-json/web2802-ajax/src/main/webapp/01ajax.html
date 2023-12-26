@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container">div</div>
+
+    <script>
+        // 创建一个 ajax对象
+        let xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+                console.log(xhr.readyState)
+                    // readState = 4,  
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // 处理数据
+                    alert(xhr.responseText)
+                    document.querySelector('#container').innerHTML = xhr.responseText
+                }
+
+            }
+            // open, 定义请求方式和 url
+        xhr.open('GET', 'http://localhost/ajax/hello')
+            // 发出 get 请求
+        xhr.send()
+            // 响应 请求
+            /*
+        xhr.onreadystatechange = function() {
+            console.log(xhr.readyState)
+                // readState = 4,  
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // 处理数据
+                alert(xhr.responseText)
+                document.querySelector('#container').innerHTML = xhr.responseText
+            }
+
+        }
+        */
+    </script>
+
+</body>
+
+</html>

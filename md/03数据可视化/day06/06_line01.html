@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 800px;
+            height: 600px;
+            border: 1px solid red;
+            margin: 50px auto;
+        }
+    </style>
+    <script src="js/echarts.js"></script>
+</head>
+
+<body>
+    <div id="box">
+    </div>
+    <script>
+        // document.querySelector()
+        // var box = document.getElementById("box");
+        var box = document.querySelector("#box");
+
+        const myChart = echarts.init(box);
+
+        // js 定义的数组
+        var xDataArr = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+        var yDataArr = [3000, 2800, 900, 1000, 800, 700, 1400, 1300, 900, 1000, 800, 600]
+
+        var option = {
+            title: {
+                text: '康师傅的月销量',
+                textStyle: {
+                    color: 'red',
+                },
+                borderWidth: 5,
+                borderColor: 'blue',
+                borderRadius: 5,
+                // left: 'center',
+                left: 50,
+                top: 10,
+                padding: 8,
+
+            },
+            legend: {
+                // null 已经可以工作了
+            },
+            // 工具箱
+            toolbox: {
+                feature: {
+                    saveAsImage: {},
+                    dataView: {},
+                    restore: {},
+                    dataZoom: {},
+                    magicType: {
+                        type: ['bar', 'line'],
+                    },
+                },
+            },
+            tooltip: {
+                trigger: 'axis',
+                // triggerOn: 'click',
+                triggerOn: 'mousemove',
+                formatter: ' 科目: {a} <br> 姓名 {b} 成绩 {c}',
+
+            },
+            xAxis: {
+                type: 'category',
+                data: xDataArr,
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name: '康师傅',
+                type: 'line', // 折线图
+                data: yDataArr,
+                // barWidth: '30%', // 柱子的宽度
+                label: {
+                    // 在柱子上面显示文字
+                    show: true,
+                    position: 'top',
+                    // rotate: 20,
+                },
+            }, ],
+
+        }
+
+        myChart.setOption(option);
+    </script>
+
+</body>
+
+</html>

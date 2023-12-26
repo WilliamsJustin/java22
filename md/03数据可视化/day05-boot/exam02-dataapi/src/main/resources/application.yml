@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    username: peter
+    password: peter@123
+    driver-class-name: org.opengauss.Driver
+    url: jdbc:opengauss://192.168.8.67:15400/mybatis
+#logging:
+#  level:
+logging:
+  level:
+    root: info   # 项目日志 水平 info
+    com:
+      chinasoft: debug   # 我们的代码  debug
+    org:
+      apache:
+        ibatis: debug   # mybatis的jar包 日志水平 是 debug
+      opengauss:
+        core: warn
+
+server:
+  port: 8888

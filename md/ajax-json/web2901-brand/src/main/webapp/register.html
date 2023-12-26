@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎注册</title>
+    <link href="css/register.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="form-div">
+        <div class="reg-content">
+            <h1>欢迎注册</h1>
+            <span>已有帐号？</span> <a href="login.html">登录</a>
+        </div>
+        <form id="reg-form" action="#" method="get">
+
+            <table>
+
+                <tr>
+                    <td>用户名</td>
+                    <td class="inputs">
+                        <input name="username" type="text" id="username">
+                        <br>
+                        <span id="username_err" class="err_msg"></span>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>密码</td>
+                    <td class="inputs">
+                        <input name="password" type="password" id="password">
+                        <br>
+                        <span id="password_err" class="err_msg" style="display: none">密码格式有误</span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>验证码</td>
+                    <td class="inputs">
+                        <input name="checkCode" type="text" id="checkCode">
+                        <img src="imgs/a.jpg">
+                        <a href="#" id="changeImg">看不清？</a>
+                    </td>
+                </tr>
+
+            </table>
+
+            <div class="buttons">
+                <input value="注 册" type="submit" id="reg_btn">
+            </div>
+            <br class="clear">
+        </form>
+    </div>
+    <script>
+        // 获取输入框对象
+        let input = document.querySelector("#username")
+            // 绑定 失焦事件
+        input.onblur = function() {
+            let v = input.value
+            console.log(v);
+            // 获取 xhr对象
+            let xhr = new XMLHttpRequest()
+
+            // 设置方法和路径
+            xhr.open('GET', 'http://localhost/demo/checkname?username=' + v)
+
+            // 发出请求
+            xhr.send()
+
+            // 处理响应
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let spanMsg = document.querySelector('#username_err')
+                    if (xhr.responseText == 'true') {
+                        spanMsg.innerHTML = '用户名已经有人使用了 ！'
+                    } else {
+                        spanMsg.innerHTML = ''
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

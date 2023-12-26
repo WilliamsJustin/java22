@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 1600px;
+            height: 800px;
+            border: 1px solid red;
+            margin: 50px auto;
+        }
+    </style>
+    <script src="./node_modules/echarts/dist/echarts.js"></script>
+    <script src="js/axios.js"></script>
+</head>
+
+<body>
+    <div id="box">
+    </div>
+    <script>
+        var box = document.querySelector("#box");
+
+        const myChart = echarts.init(box);
+
+        const url = "http://localhost:8888/stock"
+
+        const params = {
+            code: '600029',
+            start: '20220501',
+            end: '20231001',
+        }
+
+        axios.get(url, {
+            params
+        }).then(function(res) {
+            let stockArr = res.data
+            console.log(stockArr);
+            let xDataArr = []
+            let yDataArr = []
+            let stockName = stockArr[0].name
+
+            for (let i = 0; i < stockArr.length; i++) {
+                let stock = stockArr[i]
+                xDataArr.push(stock.date)
+                yDataArr.push(stock.close)
+            }
+            console.log(xDataArr);
+            console.log(yDataArr);
+            console.log(yDataArr.max);
+            console.log(yDataArr.min);
+            var option = {
+                dataZoom: [ // 控制区域缩放效果的实现
+                    {
+                        type: 'slider', // 缩放的类型 slide代表滑块 inside代表依靠鼠标滚轮
+                        // type: 'inside'
+                        xAxisIndex: 0
+                    }, {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        start: 0, // 渲染完成后, 数据筛选的初始值, 百分比
+                        end: 99 // 渲染完成后, 数据筛选的结束值, 百分比
+                    }
+                ],
+
+                title: {
+                    text: stockName,
+                    textStyle: {
+                        color: 'red',
+                    },
+                    borderWidth: 5,
+                    borderColor: 'blue',
+                    borderRadius: 5,
+                    // left: 'center',
+                    left: 50,
+                    top: 10,
+                    padding: 8,
+
+                },
+                legend: {
+                    // null 已经可以工作了
+                },
+                // 工具箱
+                toolbox: {
+                    feature: {
+                        saveAsImage: {},
+                        dataView: {},
+                        restore: {},
+                        dataZoom: {},
+                        magicType: {
+                            type: ['bar', 'line'],
+                        },
+                    },
+                },
+                tooltip: {
+                    // trigger: 'axis',
+                    // // triggerOn: 'click',
+                    // triggerOn: 'mousemove',
+                    // formatter: ' 科目: {a} <br> 姓名 {b} 成绩 {c}',
+
+                },
+                xAxis: {
+                    type: 'category',
+                    data: xDataArr,
+                },
+                yAxis: {
+                    type: 'value',
+                    // boundaryGap: false,
+                    max: Math.max(...yDataArr) * 1.05,
+                    min: Math.min(...yDataArr) * .95,
+
+                },
+                series: [{
+                    name: stockName,
+                    type: 'line', // 折线图
+                    data: yDataArr,
+                    smooth: true,
+                    label: {
+                        // 在柱子上面显示文字
+                        show: true,
+                        position: 'top',
+                        // rotate: 20,
+                    },
+                    markPoint: {
+                        data: [{
+                            type: 'max',
+                        }, {
+                            type: 'min'
+                        }]
+                    },
+                }, ],
+
+            }
+
+            myChart.setOption(option);
+
+
+        })
+    </script>
+
+</body>
+
+</html>

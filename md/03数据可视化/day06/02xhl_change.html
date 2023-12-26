@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>div</div>
+    <hr>
+    <button>get message</button>
+
+    <script>
+        const div = document.querySelector("div")
+        const btn = document.querySelector("button")
+
+        btn.onclick = function() {
+            console.log('button is click');
+            const xhr = new XMLHttpRequest()
+                // 调用 xhr.open() 函数
+            xhr.open('GET', 'http://localhost:8888/hello')
+                // 调用 xhr.send() 函数
+            xhr.send()
+                // 监听 xhr.onreadystatechange 事件
+            xhr.onreadystatechange = function() {
+                // ===     ==  ?
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 请求 得到响应结果
+                    console.log(xhr.responseText);
+                    div.innerHTML = xhr.responseText;
+                }
+
+            }
+        }
+
+        console.log("begin ...");
+        //         创建 xhr 对象
+    </script>
+
+</body>
+
+</html>

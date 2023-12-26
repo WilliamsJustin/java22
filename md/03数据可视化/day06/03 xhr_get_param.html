@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>div</div>
+
+    <script>
+        // var v1 = '1'
+        // var v2 = 1
+        //     // 值相等
+        // console.log(v1 == v2);
+        // // 值相等  变量的数据类型也是相同
+        // console.log(v1 === v2);
+
+        console.log("begin ...");
+        //         创建 xhr 对象
+        const xhr = new XMLHttpRequest()
+
+        // 监听 xhr.onreadystatechange 事件
+        xhr.onreadystatechange = function() {
+                console.log('state ' + xhr.readyState);
+                // ===     ==  ?
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 请求 得到响应结果
+                    console.log(xhr.responseText);
+                    const div = document.querySelector("div")
+                    div.innerHTML = xhr.responseText
+                        // 将 json字符串 转换为 js 数组对象
+                    const data = JSON.parse(xhr.responseText)
+                    console.log(data);
+                    console.log(data[0]);
+                    let str = JSON.stringify(data[9])
+                    console.log(str);
+                }
+            }
+            // 调用 xhr.open() 函数
+        xhr.open('GET', 'http://localhost:8888/stock?code=600029&start=20220101')
+            // 调用 xhr.send() 函数
+        xhr.send()
+    </script>
+
+</body>
+
+</html>

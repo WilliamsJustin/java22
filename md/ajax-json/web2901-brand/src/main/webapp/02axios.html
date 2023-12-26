@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/axios.min.js"></script>
+</head>
+
+<body>
+    <script>
+        // 发出 get 请求
+        // axios({
+        //     method: 'get',
+        //     url: 'http://localhost/demo/checkname?username=tiger'
+        // }).then(function(res) {
+        //     // 数据处理逻辑
+        //     console.log(res);
+        //     console.log(res.data);
+        //     alert(res.data)
+        // })
+
+        // 发出 post 请求
+        axios({
+            method: 'POST',
+            url: 'http://localhost/demo/checkname',
+            data: 'username=teacher88'
+        }).then(function(res) {
+            // 数据处理逻辑
+            console.log(res);
+            console.log(res.data);
+            alert(res.data)
+        })
+    </script>
+
+</body>
+
+</html>
